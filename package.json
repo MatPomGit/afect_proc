@@ -1,0 +1,27 @@
+{
+  "name": "afect-proc",
+  "version": "1.0.0",
+  "description": "Interaktywny kurs edukacyjny z zakresu informatyki afektywnej (Affective Computing)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -o",
+    "serve": "npx http-server -p 8000"
+  },
+  "keywords": [
+    "affective-computing",
+    "education",
+    "e-learning",
+    "lms",
+    "xapi",
+    "scorm"
+  ],
+  "author": "MatPomGit",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MatPomGit/afect_proc.git"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

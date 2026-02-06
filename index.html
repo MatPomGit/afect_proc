@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="pl" class="">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,10 +10,7 @@
     <script type="text/javascript" src="lib/player-0.0.11.min.js"></script>
     <script type="text/javascript" src="lib/lzwcompress.js"></script>
 
-    <!-- Resize Hack -->
-    <script type="text/javascript">
-      window.resizeTo(screen.width, screen.height);
-    </script>
+    <!-- Note: window.resizeTo() removed - it's blocked by modern browsers for security reasons -->
     
 
     
@@ -35,7 +32,7 @@
           if(['raw', 'review', 'tincan', 'xapi'].includes(target))
             return true
 
-          const allowOutsideDriver = window.allowedOptions()?.outsideDriver || false
+          const allowOutsideDriver = (typeof window.allowedOptions === 'function' && window.allowedOptions()?.outsideDriver) || false
 
           return allowOutsideDriver
             || window.location.protocol === 'file:'
@@ -83,12 +80,12 @@
         function __preventLoad() {
           let appDiv = document.getElementById('app')
           let errMsgSpan = document.createElement('span')
-          let errMsgText = document.createTextNode('Error: Content launched outside of a supported LMS enviroment.')
+          let errMsgText = document.createTextNode('Error: Content launched outside of a supported LMS environment.')
 
           errMsgSpan.appendChild(errMsgText)
           appDiv.appendChild(errMsgSpan)
 
-          throw new Error("Content launched outside of a supported LMS enviroment.")
+          throw new Error("Content launched outside of a supported LMS environment.")
         }
 
         function __loadEntry() {
@@ -139,7 +136,14 @@
 </script>
 
     
-    <script>__loadEntry()</script>
+    <script>
+      try {
+        __loadEntry()
+      } catch (error) {
+        console.error('Failed to load entry module:', error)
+        // Error message is already displayed by __preventLoad if applicable
+      }
+    </script>
     
   </body>
 </html>
